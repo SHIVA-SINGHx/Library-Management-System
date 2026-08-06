@@ -15,7 +15,7 @@ app.use(express.urlencoded())
 
 
 // Db
-dbConnect()
+// dbConnect()
 
 // Routes
 app.use("/", (req, res)=>{
