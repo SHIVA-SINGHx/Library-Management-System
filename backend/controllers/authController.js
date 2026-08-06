@@ -74,3 +74,40 @@ export async function registerUser(req, res){
 
 
 }
+
+
+/// verify otp
+export async function verifyOtp(req, res){
+
+    try {
+        const {email, otp} = req.body;
+        if(!email)return res.status(400).json({
+            message: "Email is required"
+        })
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(404).json({
+                message: "User not found"
+            })
+        }
+        if(user.otp !== otp || new Date() > new Date(user.otpExpiry)){
+            return res.status(400).json({
+                message: "Invalid or expired otp."
+            });
+        }
+
+        Object.assign(user, {isVerified: true, otp: null, otpExpiry: null});
+        await user.save()
+        return res.status(201).json({
+            message: "Otp verified successfully"
+        })
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Error verifying otp',
+            error: error.message
+        })
+    }
+
+}
