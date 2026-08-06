@@ -191,10 +191,30 @@ export async function loginUser(req, res){
     } catch (error) {
         console.log(error)
         return res.status(500).json({
-            message: "Login user failed "
+            message: "Login user failed ",
+            error: error.message
         })
     }
 
 
+}
 
+// get current user profile
+export async function getProfile(req, res){
+    try {
+
+        const user = await User.findById(req.user.id).select("-password");
+        if(!user) return res.status(404).json({success: false, message: "User not found"})
+        return res.status(200).json({
+            success: true,
+            user
+        })
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: "Fetching profile error",
+            error: error.message
+        })
+    }
 }
