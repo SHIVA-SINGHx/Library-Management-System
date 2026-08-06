@@ -1,9 +1,10 @@
 import express from "express"
 import cors from "cors"
 import "dotenv/config"
+import { dbConnect } from "./config/db.js";
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT
 
 
 // Middlewares
@@ -13,6 +14,8 @@ app.use(express.json())
 app.use(express.urlencoded())
 
 
+// Db
+dbConnect()
 
 // Routes
 app.use("/", (req, res)=>{
