@@ -3,6 +3,7 @@ import User from "../models/UserModel.js";
 import sendOtp from "../utils/sendOtp.js";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken"
+import bcrypt from "bcryptjs"
 
 
 // register user
@@ -268,6 +269,44 @@ export async function getUsers(req, res){
     return res.status(200).json({
       success: true,
       users
+    })
+    
+  } catch (error) {
+    console.error("Error fething profile:", error);
+    res.status(500).json({ message: "Error fething profile", error: error.message });
+  }
+}
+
+// admin register
+export async function registerAdmin(req, res){
+  try {
+    const {email, name, password, phoneNo}= req.body;
+    if(!email || name || password || phoneNo){
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required"
+      });
+    }
+    if(await User.findOne({email})){
+      return res.status(400).json({
+        success: false,
+        message: 'User already exists with this email'
+      })
+    }
+    const hashedpassword = await bcrypt.hash(password, 10)
+    const user = await User.create({
+      name,
+      email: email.trim().toLowerCase(),
+      phoneNo,
+      password: hashedpassword,
+      role: "admin",
+      isVerified: true
+    })
+
+    const {password: _, ...userResponse} = user.toObject();
+    return res.status(200).json({
+      success: true,
+      message: "Admin registred successfully"
     })
     
   } catch (error) {
