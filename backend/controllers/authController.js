@@ -304,13 +304,14 @@ export async function registerAdmin(req, res){
     })
 
     const {password: _, ...userResponse} = user.toObject();
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
-      message: "Admin registred successfully"
+      message: "Admin registred successfully",
+      user: userResponse
     })
     
   } catch (error) {
-    console.error("Error fething profile:", error);
-    res.status(500).json({ message: "Error fething profile", error: error.message });
+    console.error("Error registering Admin:", error);
+    res.status(500).json({ message: "Error registering Admin", error: error.message });
   }
 }
