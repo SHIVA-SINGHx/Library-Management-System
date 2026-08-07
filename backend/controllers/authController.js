@@ -150,21 +150,21 @@ export async function completeProfile(req, res) {
 // login as user or admin
 export async function loginUser(req, res){
     try {
-        const {email, password} = req.body;
-        if(!email || password){
+        const { email, password } = req.body;
+        if (!email || !password) {
             return res.status(400).json({
                 success: false,
                 message: 'Email and Password are required'
-            })
+            });
         }
 
-    const user = await User.findOne({email});
-    if(!user){
-        return res.status(404).json({
-            success: false,
-            message: "User not found"
-        })
-    }
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
 
     if(!user.isVerified){
         return res.status(403).json({
@@ -180,14 +180,14 @@ export async function loginUser(req, res){
         })
     }
 
-    const token = jwt.sign({id: user._id, role: user.role}, process.env.JWT_SECRET, {expiresIn: "7d"})
-    const {password, _, ...userResponse} = user.toObject();
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
+    const { password: _password, ...userResponse } = user.toObject();
 
     res.status(200).json({
         success: true,
         token,
         user: userResponse
-    })
+    });
         
     } catch (error) {
         console.log(error)
@@ -293,7 +293,7 @@ export async function registerAdmin(req, res){
         message: 'User already exists with this email'
       })
     }
-    const hashedpassword = await bcrypt.hash(password, 10)
+    const hashedpassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       name,
       email: email.trim().toLowerCase(),
@@ -301,14 +301,14 @@ export async function registerAdmin(req, res){
       password: hashedpassword,
       role: "admin",
       isVerified: true
-    })
+    });
 
-    const {password: _, ...userResponse} = user.toObject();
+    const { password: _password, ...userResponse } = user.toObject();
     return res.status(201).json({
       success: true,
-      message: "Admin registred successfully",
+      message: "Admin registered successfully",
       user: userResponse
-    })
+    });
     
   } catch (error) {
     console.error("Error registering Admin:", error);

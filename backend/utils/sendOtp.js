@@ -13,7 +13,7 @@ const sendOtp = async (email, otp)=>{
         from: process.env.EMAIL_USER,
         to: email,
         subject: "Your OTP Code",
-        html: <h2>This is your 6-digit {otp}</h2>
+        html:` <h2>This is your 6-digit {otp}</h2>`
     });
 }
 

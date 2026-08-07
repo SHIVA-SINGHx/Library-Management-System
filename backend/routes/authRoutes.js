@@ -1,8 +1,8 @@
 import express from "express"
 import { completeProfile, getProfile, getUsers, loginUser, registerAdmin, registerUser, updateProfile, verifyOtp } from "../controllers/authController.js";
-import { authRoles, authToken } from "../middleware/authMiddleware";
+import { authRoles, authToken } from "../middleware/authMiddleware.js";
 
-const authRouter = express.Router();
+const authRouter = express.Router(  );
 
 authRouter.post("/register", registerUser)
 authRouter.post("/verify-otp", verifyOtp)
