@@ -30,8 +30,7 @@ export const authToken = async(req, res, next)=>{
     }
 }
 
-// authorize specific rols
-
+// authorize specific roles
 export const authRoles = async(...roles)=> {
     return (req, res, next)=>{
         if(!req.user || !roles.includes(req.user.role)){
