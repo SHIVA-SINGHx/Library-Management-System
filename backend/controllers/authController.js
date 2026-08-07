@@ -260,3 +260,18 @@ export async function updateProfile(req, res) {
     res.status(500).json({ message: "Error updating profile", error: error.message });
   }
 }
+
+// get all users profile
+export async function getUsers(req, res){
+  try {
+    const users = await User.find({role: "user", isVerified: true, isProfileComplete: true}).select("-password")
+    return res.status(200).json({
+      success: true,
+      users
+    })
+    
+  } catch (error) {
+    console.error("Error fething profile:", error);
+    res.status(500).json({ message: "Error fething profile", error: error.message });
+  }
+}
