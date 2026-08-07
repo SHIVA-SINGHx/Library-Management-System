@@ -29,3 +29,19 @@ export const authToken = async(req, res, next)=>{
         res.status(500).json({ message: "token is not valid", error: error.message });
     }
 }
+
+// authorize specific rols
+
+export const authRoles = async(...roles)=> {
+    return (req, res, next)=>{
+        if(!req.user || !roles.includes(req.user.role)){
+            return res.status(403).json({
+                success: false,
+                message: "Access Forbidden"
+            });
+        }
+        next();
+    }
+}
+
+
