@@ -190,3 +190,33 @@ export async function applyFine(req, res){
         })
     }
 }
+
+// remove fine
+export async function removeFine(req,res){
+    try {
+        const issue = await Issues.findById(req.params.id)
+        if(!issue) return res.status(404).json({
+            success: false,
+            message: "Issue record not found"
+        })
+        Object.assign(issue,{
+            manualFine: 0,
+            fineCleared: true,
+            clearedFineAmount: calculateFine(issue, issue.fineRate, issue.fineInterval)
+        })
+        await issue.save();
+
+        res.status(200).json({
+            success: false,
+            message: "Fine cleared successfully",
+            issue
+        });
+
+    } catch (error) {
+        console.log("Error while removing fine", error.message)
+        res.status(500).json({
+            success:false,
+            message: "Error while removing fine", error: error.message
+        })
+    }
+}
