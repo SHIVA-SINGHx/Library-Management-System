@@ -122,9 +122,42 @@ export async function getStudentIssue(req,res){
         })
     } catch (error) {
         console.log("Error while fetching student issues", error.message)
-        return res.status(500).json({
+        res.status(500).json({
             success:false,
             message: "Error while fething student issues", error: error.message
+        })
+    }
+}
+
+// return issued manual books
+export async function returnBook(req, res){
+    try {
+        const issue = await Issues.findById(req.params.id)
+        if(!issue){
+            return res.status(404).json({
+                success: false,
+                message: "Issue book not found"
+            })
+        }
+
+        if(issue.returnedOn){
+            return res.status(400).json({
+                success :false,
+                message: "Book already returned"
+            })
+        }
+        issue.replaceOne = getLocalIsoDate();
+        await issue.save()
+        res.status(200).json({
+            success: true,
+            message: 'Book returned successfully',
+            issue
+        })
+    } catch (error) {
+        console.log("Error while returning book", error.message)
+        res.status(500).json({
+            success:false,
+            message: "Error while returning book", error: error.message
         })
     }
 }
