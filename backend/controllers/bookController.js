@@ -1,3 +1,4 @@
+import Issues from "../models/Issues.js";
 import Setting from "../models/Setting.js";
 import User from "../models/UserModel.js";
 
@@ -88,6 +89,23 @@ export async function issueManualBook(req, res){
         return res.status(500).json({
             success: false,
             message: "Error issuing fething books"
+        })
+    }
+}
+
+// get all manual issue (admin)
+export async function getIssueManual(req, res){
+    try {
+        const issues = await Issues.find({}).sort({createdAd: -1});
+        return res.status(200).json({
+            success: true,
+            issues
+        })
+    } catch (error) {
+        console.log("Error while fetching books", error.message)
+        return res.status(500).json({
+            success:false,
+            message: "Error while fething books"
         })
     }
 }
