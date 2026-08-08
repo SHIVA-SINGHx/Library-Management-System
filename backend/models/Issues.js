@@ -74,7 +74,7 @@ const issueSchema = new mongoose.Schema({
     studentId: {
       type: String,
     },
-}{timestamps: true})
+},{timestamps: true})
 
 
 export default mongoose.model("Issue", issueSchema);
