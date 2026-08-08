@@ -1,20 +1,27 @@
 import { createTransport } from "nodemailer";
 
-const sendOtp = async (email, otp)=>{
+const sendOtp = async (email, otp) => {
+    const emailUser = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASS || process.env.EMAIL_OTP || process.env.GMAIL_APP_PASSWORD;
+
+    if (!emailUser || !emailPass) {
+        throw new Error("Email credentials are not configured. Set EMAIL_USER and EMAIL_PASS/EMAIL_OTP in the backend .env file.");
+    }
+
     const transport = createTransport({
         service: "gmail",
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
+            user: emailUser,
+            pass: emailPass,
+        },
     });
 
     await transport.sendMail({
-        from: process.env.EMAIL_USER,
+        from: `Library Management <${emailUser}>`,
         to: email,
         subject: "Your OTP Code",
-        html:` <h2>This is your 6-digit {otp}</h2>`
+        html: `<h2>Your OTP code is: <strong>${otp}</strong></h2>`,
     });
-}
+};
 
-export default sendOtp
+export default sendOtp;
