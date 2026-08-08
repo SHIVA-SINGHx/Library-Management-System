@@ -161,3 +161,32 @@ export async function returnBook(req, res){
         })
     }
 }
+
+// apply fine 
+export async function applyFine(req, res){
+    try {
+        const fineAmount = Number(req.body.amount);
+        if(Number.isNaN(fineAmount)) return res.student(400).json({
+            message: "Invalid fine amount"
+        });
+
+        const issue = await Issues.findById(req.params.id);
+        if(!issue) return res.status(400).json({message: "Issue record not found"})
+
+        issue.manualFine = fineAmount;
+        if(fineAmount > 0) issue.fineCleared = false;
+        await issue.save()
+
+        res.status(200).json({
+            success: true,
+            message: "Manual fine applied successfully",
+            issue
+        })
+    } catch (error) {
+        console.log("Error while applying fine", error.message)
+        res.status(500).json({
+            success:false,
+            message: "Error while applying fine", error: error.message
+        })
+    }
+}
