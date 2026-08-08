@@ -102,10 +102,29 @@ export async function getIssueManual(req, res){
             issues
         })
     } catch (error) {
-        console.log("Error while fetching books", error.message)
+        console.log("Error while fetching manaul books", error.message)
         return res.status(500).json({
             success:false,
-            message: "Error while fething books"
+            message: "Error while fething manual books", error: error.message
+        })
+    }
+}
+
+// get manual issues for logged-in student
+export async function getStudentIssue(req,res){
+    try {
+        const issue = await Issues.find({
+            userEmail: req.user.email.toLowerCase().trim()
+        }).sort({createdAd: -1})
+        res.status(200).json({
+            success: true,
+            issue
+        })
+    } catch (error) {
+        console.log("Error while fetching student issues", error.message)
+        return res.status(500).json({
+            success:false,
+            message: "Error while fething student issues", error: error.message
         })
     }
 }
