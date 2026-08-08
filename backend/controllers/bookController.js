@@ -224,8 +224,8 @@ export async function removeFine(req,res){
 // get active fine setting
 export async function getFineSetting(req, res){
     try {
-        const setting = await(FineSetting.findOne({}) || 
-        (await FineSetting.create({amount: 10, interval: "day"}))
+        const setting = await(Setting.findOne({}) || 
+        (await Setting.create({amount: 10, interval: "day"}))
     
     )
     res.status(200).json({success: true, setting})
@@ -239,4 +239,33 @@ export async function getFineSetting(req, res){
     }
 }
 
-//
+// update setting
+export async function updateSetting(req, res){
+    try {
+        const {amount, interval} = req.body;
+        let setting = await Setting.findOne({});
+
+        if(setting){
+            if(amount !== undefined) setting.amount = Number(amount)
+            if(interval !== undefined) setting.interval = interval;
+            await setting.save()
+        } else{
+            setting  = await Setting.create({
+                amount: Number(amount) || 10,
+                interval: interval || "day"
+            })
+        }
+        res.status(200).json({
+            success: true,
+            message: "Setting update successfully"
+        })
+        
+
+    } catch (error) {
+        console.log("Error while fetching update fine setting", error.message)
+        res.status(500).json({
+            success:false,
+            message: "Error while fetching update fine setting", error: error.message
+        })
+    }
+}
