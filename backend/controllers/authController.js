@@ -281,7 +281,7 @@ export async function getUsers(req, res){
 export async function registerAdmin(req, res){
   try {
     const {email, name, password, phoneNo}= req.body;
-    if(!email || name || password || phoneNo){
+    if(!email || !name || !password || !phoneNo){
       return res.status(400).json({
         success: false,
         message: "All fields are required"
