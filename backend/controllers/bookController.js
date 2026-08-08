@@ -220,3 +220,23 @@ export async function removeFine(req,res){
         })
     }
 }
+
+// get active fine setting
+export async function getFineSetting(req, res){
+    try {
+        const setting = await(FineSetting.findOne({}) || 
+        (await FineSetting.create({amount: 10, interval: "day"}))
+    
+    )
+    res.status(200).json({success: true, setting})
+        
+    } catch (error) {
+        console.log("Error while fetching fine setting ", error.message)
+        res.status(500).json({
+            success:false,
+            message: "Error while fething fine setting", error: error.message
+        })
+    }
+}
+
+//
