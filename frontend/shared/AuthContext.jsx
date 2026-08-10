@@ -228,6 +228,29 @@ export const AuthProvider = ({children}) => {
   };
 
   // REGISTER AS A STUDENT AND TRIGGER OTP SEND
+    const registerStudent = async ({ name, email, phone, password }) => {
+    try {
+      const response = await fetch(`${API_BASE_URl}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, phone, password }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        return { ok: false, error: data.message || "Registration failed" };
+      }
+      return { ok: true, message: data.message };
+    } catch (error) {
+      console.error("Register API error:", error);
+      return {
+        ok: false,
+        error: "Failed to connect to authentication server.",
+      };
+    }
+  };
 
 
 
