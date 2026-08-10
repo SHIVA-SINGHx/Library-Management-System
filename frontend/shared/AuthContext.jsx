@@ -252,6 +252,30 @@ export const AuthProvider = ({children}) => {
     }
   };
 
+    const verifyOtpCode = async ({ email, otp }) => {
+    try {
+      const response = await fetch(`${API_BASE_URl}/verify-otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, otp }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        return { ok: false, error: data.message || "OTP verification failed" };
+      }
+      return { ok: true, message: data.message };
+    } catch (error) {
+      console.error("OTP API error:", error);
+      return {
+        ok: false,
+        error: "Failed to connect to authentication server.",
+      };
+    }
+  };
+
 
 
   return <AuthContext.Provider>{children}</AuthContext.Provider>;
