@@ -1,3 +1,4 @@
+import { useAuth } from '../../shared/AuthContext';
 import Sidebar from '../components/Sidebar'
 import { BookMarked, ShieldCheck, Users } from 'lucide-react';
 
@@ -38,7 +39,7 @@ const features = [
 
 const Home = () => {
 
-
+    const {currentUser, logout} = useAuth()
 
   return (
     <div>
