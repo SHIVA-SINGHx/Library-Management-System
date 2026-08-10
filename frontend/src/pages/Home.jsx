@@ -1,5 +1,6 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
+import { BookMarked, ShieldCheck, Users } from 'lucide-react';
 
 const navItems = [
   {
