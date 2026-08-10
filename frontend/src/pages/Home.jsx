@@ -1,4 +1,3 @@
-import React from 'react'
 import Sidebar from '../components/Sidebar'
 import { BookMarked, ShieldCheck, Users } from 'lucide-react';
 
@@ -39,34 +38,13 @@ const features = [
 
 const Home = () => {
 
-      const footerItems = currentUser
-    ? [
-        {
-          label: "Logout",
-          icon: "login",
-          kind: "primary",
-          action: () => {
-            logout();
-            navigate("/");
-          },
-        },
-      ]
-    : [
-        { label: "Login", href: "/login", icon: "login", kind: "primary" },
-        {
-          label: "Sign Up",
-          href: "/signup",
-          icon: "signup",
-          kind: "secondary",
-        },
-      ];
+
 
   return (
     <div>
       <Sidebar title="LibShelf" subtitle="A library management portal"
       badge="Beautiful theme"
       navItems={navItems}
-      footerItems={footerItems}
       />
     </div>
   )

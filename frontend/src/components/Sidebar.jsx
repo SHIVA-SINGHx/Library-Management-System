@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { sidebarStyles as s } from '../assets/dummyStyles'
 import {Bell, BookCopy, ChartNoAxesCombined, ChevronRight, Icon, Menu, ShieldCheck, UserRound, X} from "lucide-react"
-import { href, Link, useLocation } from 'react-router-dom'
+import {  Link, useLocation } from 'react-router-dom'
 
 const mapIcon = {
     books: BookCopy,
@@ -14,15 +14,14 @@ const mapIcon = {
 const Sidebar = ({
     title,
     subtitle,
-    badges,
+    badge,
     navItems,
-    footerItems=[],
     accent="user",
     logoSrc
 }) => {
 
     const location = useLocation();
-    const {open, setOpen} = useState(false)
+    const [open, setOpen] = useState(false)
 
     const badgeStyles = accent==="admin" ? s.badgeAdmin : s.badgeUser
 
@@ -53,8 +52,8 @@ const Sidebar = ({
                     <p className={s.subtitle}>{subtitle}</p>
 
                     {
-                        badges &&(
-                            <span className={`${s.badgeBase} ${s.badgeStyles}`}> {badges}</span>
+                        badge &&(
+                            <span className={`${s.badgeBase} ${badgeStyles}`}> {badge}</span>
                         )
                     }
 
@@ -67,7 +66,7 @@ const Sidebar = ({
             <nav className={s.nav}>
                 {
                     navItems.map((item)=> {
-                        const icon = iconMap[item.icon] ?? ChevronRight
+                        const IconComponent = mapIcon[item.icon] ?? ChevronRight
                         const active = 
                         location.pathname === item.href ||
                         (item.match ? location.pathname.startsWith(item.match) : false);
@@ -82,7 +81,7 @@ const Sidebar = ({
                                 }`}             
                             >
                                 <span className={`${s.navIconWrapper} ${active ? s.navIconWrapper : s.navIconWrapperInactive}`}>
-                                <Icon size={18}/> 
+                                <IconComponent size={18}/> 
                                 </span>
 
                             <span className='min-w-0 flex-1'>
