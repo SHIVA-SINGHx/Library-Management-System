@@ -276,6 +276,115 @@ export const AuthProvider = ({children}) => {
     }
   };
 
+  // COMPLETE PROFILE
+    const completeProfileData = async ({
+    email,
+    department,
+    stream,
+    semester,
+    academicYear,
+    rollNumber,
+  }) => {
+    try {
+      const response = await fetch(`${API_BASE_URl}/complete-profile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          department,
+          stream,
+          semester,
+          year: academicYear,
+          rollNo: rollNumber,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        return {
+          ok: false,
+          error: data.message || "Profile completion failed",
+        };
+      }
+      return { ok: true, message: data.message };
+    } catch (error) {
+      console.error("Complete Profile API error:", error);
+      return {
+        ok: false,
+        error: "Failed to connect to authentication server.",
+      };
+    }
+  };
+
+
+  const signup = async (form) => {
+    return completeProfileData(form);
+  };
+
+
+  const accountExists = async (email) => {
+    return accounts.some(
+      (item) => item.email.toLowerCase() === email.trim().toLowerCase(),
+    );
+  };
+
+
+  // UPDATEPROFILE
+  const updateProfile = async (updates) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (!token) {
+      return { ok: false, error: "No active token found." };
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URl}/update-profile`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: updates.name,
+          email: updates.email,
+          phone: updates.phone,
+          department: updates.department,
+          stream: updates.stream,
+          semester: updates.semester,
+          academicYear: updates.academicYear,
+          rollNumber: updates.rollNumber,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        return { ok: false, error: data.message || "Profile update failed" };
+      }
+
+      if (data.success && data.user) {
+        const mappedUser = mapUserToFrontend(data.user);
+        localStorage.setItem(SESSION_KEY, JSON.stringify(mappedUser));
+        setCurrentUser(mappedUser);
+
+        setAccounts((current) =>
+          current.map((item) =>
+            item.email === mappedUser.email ? mappedUser : item,
+          ),
+        );
+
+        return { ok: true, user: mappedUser };
+      }
+      return { ok: false, error: "Failed to update profile details" };
+    } catch (error) {
+      console.error("Update Profile API error:", error);
+      return {
+        ok: false,
+        error: "Failed to connect to authentication server.",
+      };
+    }
+  };
+
 
 
   return <AuthContext.Provider>{children}</AuthContext.Provider>;
