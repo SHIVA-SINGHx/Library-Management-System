@@ -1,6 +1,6 @@
 import  { useState } from 'react'
 import { sidebarStyles as s } from '../assets/dummyStyles'
-import {Bell, BookCopy, ChartNoAxesCombined, ChevronRight, Icon, LogIn, Menu, ShieldCheck, UserPlus, UserRound, X} from "lucide-react"
+import { Bell, BookCopy, ChartNoAxesCombined, ChevronRight, LogIn, Menu, ShieldCheck, UserPlus, UserRound, X } from 'lucide-react'
 import {  Link, useLocation } from 'react-router-dom'
 
 const mapIcon = {
@@ -15,9 +15,10 @@ const Sidebar = ({
     title,
     subtitle,
     badge,
-    navItems,
+    navItems = [],
     accent="user",
-    logoSrc
+    logoSrc,
+    footerItems = []
 }) => {
 
     const location = useLocation();

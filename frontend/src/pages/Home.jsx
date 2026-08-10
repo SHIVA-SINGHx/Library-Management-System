@@ -1,6 +1,9 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../shared/AuthContext';
 import Sidebar from '../components/Sidebar'
-import { BookMarked, ShieldCheck, Users } from 'lucide-react';
+import { ArrowRight, BookCopy, ShieldCheck, Users } from 'lucide-react';
+import { homeStyles as s } from '../assets/dummyStyles';
+import { createElement } from 'react';
 
 const navItems = [
   {
@@ -21,7 +24,7 @@ const navItems = [
 
 const features = [
   {
-    icon: BookMarked,
+    icon: BookCopy,
     title: "Manual book issuing",
     text: "Track manual book issues, due dates, returns, and dynamic fine calculations in one workflow.",
   },
@@ -37,16 +40,116 @@ const features = [
   },
 ];
 
+
 const Home = () => {
 
     const {currentUser, logout} = useAuth()
+    const navigate = useNavigate()
+
+    const footerItems = currentUser
+      ? [
+          {
+            label: "Logout",
+            icon: "login",
+            kind: "primary",
+            action: () => {
+              logout();
+              navigate("/");
+            },
+          },
+        ]
+      : [
+          { label: "Login", href: "/login", icon: "login", kind: "primary" },
+          { label: "Sign Up", href: "/signup", icon: "signup", kind: "secondary" },
+        ];
+
 
   return (
-    <div>
-      <Sidebar title="LibShelf" subtitle="A library management portal"
+    <div className={s.layoutContainer}>
+      <Sidebar 
+      title="LibShelf"
+      subtitle="A library management portal"
       badge="Beautiful theme"
       navItems={navItems}
+      footerItems = {footerItems}
+      
       />
+
+      <main className={s.mainContent}>
+        <div className={s.innerContainer}>
+            <section className={s.heroSection}>
+                <div className={s.heroGrid}>
+                    <div>
+                        <span className={s.heroBadge}>Library Management Website</span>
+                        <h1 className={s.heroTitle}>
+                            Manage students, books, return, and fines in one library dashboard
+                        </h1>
+                        <p className={s.heroText}>
+                            This library management portal gives students a focused borrowing dashboard and gives admin a practical workspace for manual circulation, user records and overdue tracking.
+                        </p>
+                        <div className={s.heroButtons}>
+                          {currentUser ? (
+                            <Link
+                              to={
+                                currentUser.role === "admin"
+                                  ? "/admin/dashboard"
+                                  : "/user/dashboard"
+                              }
+                              className={s.heroButtonPrimary}
+                            >
+                              Go To Dashboard
+                              <ArrowRight size={16} />
+                            </Link>
+                          ) : (
+                            <>
+                              <Link to="/signup" className={s.heroButtonPrimary}>
+                                Create Account
+                                <ArrowRight size={16} />
+                              </Link>
+
+                              <Link to="/login" className={s.heroButtonSecondary}>
+                                Login Now
+                                <ArrowRight size={16} />
+                              </Link>
+                            </>
+                          )}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className='grid gap-4'>
+                    <div className={s.infoCard}>
+                        <p className={s.infoCardLabel}> Library workflow</p>
+                        <p className={s.infoCardText}>
+                            Seperate student and admin dashboards built for daily library operation.
+
+                        </p>
+                        <p className={s.infoCardText}>
+                            Monitor issue activity, keep profile records updated, and track overdue follow-up without leaving the system.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+            <section className={s.featureCard}>
+              {features.map(({icon, title, text}) => (
+                <article key={title} className={s.featureCard}>
+                  <span className={s.featureIconWrapper}>
+                    {createElement(icon, {size: 22})}
+                   </span>
+
+                   <h2 className={s.featureTitle}> {title}</h2>
+                   <p className={s.featureText}>{text}</p>
+                </article>
+              ))}
+            </section>
+        </div>
+      </main>
+
+
+
     </div>
   )
 }
