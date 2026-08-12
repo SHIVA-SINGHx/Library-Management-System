@@ -1,29 +1,27 @@
-import {Navigate, Route, Routes}  from "react-router-dom"
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
-import ProtectedRoute from "./shared/ProtectedRoute"
-import AdminLayout from "./admin/AdminLayout"
-import AdminDashBoardPage from "./admin/AdminDashBoardPage"
+import { Navigate, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ProtectedRoute from "./shared/ProtectedRoute";
+import AdminLayout from "./admin/AdminLayout";
+import AdminDashBoardPage from "./admin/AdminDashBoardPage";
 
 const App = () => {
   return (
     <Routes>
-      <Route path='/' element={<Home/>} />
-      <Route path='/login' element={<Login/>}/>
-      <Route path='signup' element={<Signup/> }/>
-
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
 
       {/* Protected Routes only for Admin */}
-
-      <Route element={<ProtectedRoute allowedRole="admin"/>}>
-      <Route path="/admin" element={<AdminLayout/>}>
-      <Route index element={ <Navigate to="/admin/dashboard" replace/> }/> 
-      <Route path="dashboard" element={<AdminDashBoardPage/>}/>
-      </Route>
+      <Route element={<ProtectedRoute allowedRole="admin" />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="dashboard" element={<AdminDashBoardPage />} />
+        </Route>
       </Route>
     </Routes>
-  )
-}
+  );
+};
 
-export default App
+export default App;
