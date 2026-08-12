@@ -22,8 +22,8 @@ dbConnect()
 
 // Routes
 app.use("/api/auth", authRouter);
-app.use("/api/student", studentRouter);
-app.use("api/books", bookRouter);
+app.use("/api/students", studentRouter);
+app.use("/api/books", bookRouter);
 
 app.get("/", (req, res)=>{
     res.json("Hello api is working fine!")
