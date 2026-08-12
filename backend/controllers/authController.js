@@ -9,16 +9,17 @@ import bcrypt from "bcryptjs"
 // register user
 export async function registerUser(req, res) {
   try {
-    const { email, password, name, phoneNo } = req.body;
+    const { email, password, name, phoneNo, phone } = req.body;
     if (!email)
       return res.status(400).json({
         message: "Email is required",
       });
 
-    const cleanPhone = phoneNo ? phoneNo.toString().replace(/\D/g, "") : "";
+    const rawPhone = phoneNo ?? phone;
+    const cleanPhone = rawPhone ? rawPhone.toString().replace(/\D/g, "") : "";
     if (cleanPhone.length !== 10) {
       return res.status(400).json({
-        message: "Mobile number must be 10 digit",
+        message: "Mobile number must be 10 digits",
       });
     }
 

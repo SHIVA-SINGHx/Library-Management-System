@@ -4,7 +4,7 @@ const AuthContext = createContext(null);
 
 const SESSION_KEY = "library-auth-session";
 const TOKEN_KEY = "library-auth-token";
-const API_BASE_URl = "http://localhost:0000/api/auth";
+const API_BASE_URl = "http://localhost:8000/api/auth";
 
 const defaultAccounts = [];
 
@@ -228,14 +228,15 @@ export const AuthProvider = ({children}) => {
   };
 
   // REGISTER AS A STUDENT AND TRIGGER OTP SEND
-    const registerStudent = async ({ name, email, phone, password }) => {
+    const registerStudent = async ({ name, email, phoneNo, phone, password }) => {
     try {
+      const normalizedPhone = phoneNo ?? phone;
       const response = await fetch(`${API_BASE_URl}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, phone, password }),
+        body: JSON.stringify({ name, email, phoneNo: normalizedPhone, phone: normalizedPhone, password }),
       });
 
       const data = await response.json();

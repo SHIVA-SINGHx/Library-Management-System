@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../shared/AuthContext';
+import { useAuth } from '../shared/AuthContext';
 import Sidebar from '../components/Sidebar'
 import { ArrowRight, BookCopy, ShieldCheck, Users } from 'lucide-react';
 import { homeStyles as s } from '../assets/dummyStyles';

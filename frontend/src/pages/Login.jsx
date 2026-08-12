@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { loginStyles as s } from "../assets/dummyStyles";
 import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail, ShieldCheck, UserRound } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../shared/AuthContext";
+import { useAuth } from "../shared/AuthContext";
 
 const roleChoices = [
   { value: "user", label: "Student", icon: UserRound },
