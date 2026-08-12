@@ -6,6 +6,7 @@ import ProtectedRoute from "./shared/ProtectedRoute";
 import AdminLayout from "./admin/AdminLayout";
 import AdminDashBoardPage from "./admin/AdminDashBoardPage";
 import AdminBooksPage from "./admin/AdminBooksPage";
+import AdminUserPage from "./admin/AdminUserPage";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashBoardPage />} />
           <Route path="books" element={<AdminBooksPage/> }></Route>
+          <Route path="users" element= {<AdminUserPage/>}></Route>
 
 
         </Route>
