@@ -7,6 +7,8 @@ import AdminLayout from "./admin/AdminLayout";
 import AdminDashBoardPage from "./admin/AdminDashBoardPage";
 import AdminBooksPage from "./admin/AdminBooksPage";
 import AdminUserPage from "./admin/AdminUserPage";
+import AdminFinePage from "./admin/AdminFinePage"
+
 
 const App = () => {
   return (
@@ -22,7 +24,7 @@ const App = () => {
           <Route path="dashboard" element={<AdminDashBoardPage />} />
           <Route path="books" element={<AdminBooksPage/> }></Route>
           <Route path="users" element= {<AdminUserPage/>}></Route>
-
+          <Route path="fines" element={<AdminFinePage/>}/>
 
         </Route>
       </Route>
