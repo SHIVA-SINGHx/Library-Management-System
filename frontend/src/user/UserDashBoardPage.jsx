@@ -1,9 +1,104 @@
-import React from 'react'
+import { AlertTriangle, BookCopy, GraduationCap, IdCard, ReceiptText, Sparkles } from "lucide-react"
+import { userDashboardPageStyles as s } from "../assets/dummyStyles"
+import { useAuth } from "../shared/AuthContext";
+import { useLibrary } from "../shared/LibraryContext";
+
+
 
 const UserDashBoardPage = () => {
+
+      const { currentUser } = useAuth();
+  const { currentUserHistory, currentUserSummary } = useLibrary();
+
+  const activeCount = currentUserHistory.filter(
+    (item) => item.liveStatus === "Borrowed",
+  ).length;
+  const overdueCount = currentUserHistory.filter(
+    (item) => item.liveStatus === "Overdue",
+  ).length;
+  const pendingFine = currentUserSummary?.totalFine ?? 0;
+  const clearedFine = currentUserSummary?.totalClearedFine ?? 0;
+
+  const overviewStats = [
+    {
+      key: "issues",
+      label: "Total Issues",
+      value: `${currentUserHistory.length}`,
+      note: "All library records attached to your student account",
+      icon: BookCopy,
+    },
+    {
+      key: "borrowed",
+      label: "Active Books",
+      value: `${activeCount}`,
+      note: "Books currently mapped to your profile",
+      icon: GraduationCap,
+    },
+    {
+      key: "overdue",
+      label: "Overdue Books",
+      value: `${overdueCount}`,
+      note: "Needs follow-up before more penalties are added",
+      icon: AlertTriangle,
+    },
+    {
+      key: "pending-fine",
+      label: "Pending Fine",
+      value: `Rs. ${pendingFine}`,
+      note: "Fine amount still pending on active records",
+      icon: ReceiptText,
+    },
+    {
+      key: "cleared-fine",
+      label: "Fine Cleared",
+      value: `Rs. ${clearedFine}`,
+      note: "Total fine amount already cleared on your account",
+      icon: ReceiptText,
+    },
+  ];
+
+  const recentBooks = currentUserHistory.slice(0, 3);
+
+
   return (
-    <div>
-      dashboard
+    <div className={s.pageContainer}>
+        <section className={s.heroSection}>
+            <div className={s.heroGrid}>
+                <div className={s.heroLeft}>
+                    <span className={s.heroBadge}>
+                        <Sparkles size={14}/>
+                        Student Dashboard
+                    </span>
+
+                    <h1 className={s.heroTitle}>
+                        {currentUser?.name ?? "Reader"} profile, semester, status, and your latest library books.
+                    </h1>
+                    <p className={s.heroText}>
+                        Your dashboard now keeps the important account summary at the top and shows the most recent issued books directly below for faster access.
+                    </p>
+                </div>
+
+                <div className={s.rightColumnGrid}>
+                    <article className={s.profileCard}>
+                        <div className={s.profileHeader}>
+                            <div className="min-w-0">
+                                <p className={s.profileLabel}>Student Profile</p>
+                                <p className={s.profileName}>
+                                    {currentUser?.name ?? "Campus Reader"}
+                                </p>
+                                <span className={s.profileIconWrapper}>
+                                    <IdCard size={20}/>
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+            </div>
+        </section>
+      
     </div>
   )
 }
