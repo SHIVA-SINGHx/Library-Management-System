@@ -7,8 +7,9 @@ import AdminLayout from "./admin/AdminLayout";
 import AdminDashBoardPage from "./admin/AdminDashBoardPage";
 import AdminBooksPage from "./admin/AdminBooksPage";
 import AdminUserPage from "./admin/AdminUserPage";
-import AdminFinePage from "./admin/AdminFinePage"
-
+import AdminFinePage from "./admin/AdminFinePage";
+import UserLayout from "./user/UserLayout";
+import UserDashBoardPage from "./user/UserDashBoardPage";
 
 const App = () => {
   return (
@@ -22,12 +23,20 @@ const App = () => {
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashBoardPage />} />
-          <Route path="books" element={<AdminBooksPage/> }></Route>
-          <Route path="users" element= {<AdminUserPage/>}></Route>
-          <Route path="fines" element={<AdminFinePage/>}/>
-
+          <Route path="books" element={<AdminBooksPage />}></Route>
+          <Route path="users" element={<AdminUserPage />}></Route>
+          <Route path="fines" element={<AdminFinePage />} />
         </Route>
       </Route>
+
+      {/* Protected routes for user */}
+      <Route element={<ProtectedRoute allowedRole="user" />}>
+        <Route path="/user" element={<UserLayout />}>
+          <Route index element={<Navigate to="/user/dashboard" replace />} />
+          <Route path="dashboard" element={<UserDashBoardPage />} />
+        </Route>
+      </Route>
+      
     </Routes>
   );
 };
