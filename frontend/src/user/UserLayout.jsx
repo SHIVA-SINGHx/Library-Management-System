@@ -1,8 +1,8 @@
-import React from 'react'
+
 import { userLayoutStyles as s } from '../assets/dummyStyles'
 import logoSrc from "../assets/library-mark.svg"
 import Sidebar from '../components/Sidebar'
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../shared/AuthContext';
 
 const navItems = [
@@ -55,6 +55,14 @@ const UserLayout = () => {
         subtitle="College library access"
         badge="Student section" navItems={navItems} footerItems={footerItems} logoSrc={logoSrc}
         />
+
+        <main className={s.mainContent}>
+            <div className={s.innerContainer}>
+                <Outlet/>
+            </div>
+        </main>
+
+
     </div>
   )
 }
