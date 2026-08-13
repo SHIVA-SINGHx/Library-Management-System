@@ -86,8 +86,17 @@ const AdminFine = () => {
                 ))}
 
               </select>
-
             </label>
+
+            {isEditing ? (
+              <button type='submit' className={s.submitButton}>
+                Save Fine Rule
+              </button>
+            ) : (
+              <div className={s.readOnlyDisplay}>
+                Rs. {fineSettings.amount} per {fineSettings.interval} 
+              </div>
+            )}
 
 
           </form>
