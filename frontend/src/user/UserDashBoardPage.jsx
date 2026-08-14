@@ -2,6 +2,8 @@ import { AlertTriangle, BookCopy, GraduationCap, IdCard, ReceiptText, Sparkles }
 import { userDashboardPageStyles as s } from "../assets/dummyStyles"
 import { useAuth } from "../shared/AuthContext";
 import { useLibrary } from "../shared/LibraryContext";
+import {Link } from "react-router-dom"
+import UserBookCard from "./UserBookCard";
 
 
 
@@ -161,6 +163,35 @@ const UserDashBoardPage = () => {
               </article>
             )
           })}
+        </section>
+
+        <section className={s.recentSection}>
+          <div className={s.recentHeader}>
+            <div>
+              <h2 className={s.recentTitle}>Recent Books</h2>
+              <p className={s.recentSubtitle}>
+                The latest three records from your books page are shown here with the same card design so you can continue from the dashboard.
+              </p>
+            </div>
+             
+             <Link to="/user/books" className={s.viewMoreButton}>
+             View More
+             </Link>
+          </div>
+
+          <div className={s.recentGrid}>
+            {recentBooks.length ? (
+              recentBooks.map((record)=>{
+                <UserBookCard key={record.id} record={record} borrowerName={currentUser?.name ?? "Student"}/>
+              })
+            ) : (
+              <div className={s.emptyRecentState}>
+                No recent books found for this account.
+                </div>
+            )}
+
+          </div>
+
 
         </section>
       
