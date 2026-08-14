@@ -91,12 +91,77 @@ const UserDashBoardPage = () => {
                                 </span>
                             </div>
 
+                            <div className={s.profileDetails}>
+                              <div className={s.profileDetailItem}>
+                                Student ID: {currentUserSummary?.studentId ?? "Not assigned"}
+
+                                <div className={s.profileDetailItem}>
+                                  Roll Number:{" "}
+                                   {currentUserSummary?.rollNumber ?? "Not assigned"}
+                                </div>
+
+                                <div className={s.profileDetailItem}>
+                                  Department:{" "}
+                                   {currentUserSummary?.department ?? "General"}
+                                </div>
+                              </div>
+                              <article className={s.semesterCard}>
+                                <div className={s.semesterHeader}>
+                                  <div>
+                                    <p className={s.semesterLabel}>
+                                      Semester Details
+                                    </p>
+                                    <p className={s.semesterValue}>
+                                      {currentUserSummary?.semester ?? "Semester 1"}
+                                    </p>
+                                    <div>
+                                        <span className={s.semesterIconWrapper}>
+                                          <GraduationCap size={20}/>
+                                        </span>
+                                    </div>
+
+                                    <div className={s.semesterDetails}>
+                                      <div className={s.semesterDetailItem}>
+                                        Stream: {currentUserSummary?.stream ?? "General"}
+                                      </div>
+                                      <div className={s.semesterDetailItem}>
+                                        Academic Year: {currentUserSummary?.academicYear ?? "1st Year"}
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </article>
+
+                            </div>
+
                         </div>
 
                     </article>
 
                 </div>
             </div>
+        </section>
+
+        <section className={s.statCard}>
+          {overviewStats.map((item)=>{
+            const Icon = item.icon;
+
+            return(
+              <article key={item.key} className={s.statCard}>
+                <div className={s.statHeader}>
+                  <span className={s.statIconWrapper}>
+                    <Icon size={20}/>
+                  </span>
+                  <span className={s.statLiveBadge}>Live</span>
+                </div>
+                <p className={s.statLabel}> {item.label}</p>
+                <p className={s.statValue}> {item.value}</p>
+                <p className={s.note}> {item.note}</p>
+              </article>
+            )
+          })}
+
         </section>
       
     </div>
