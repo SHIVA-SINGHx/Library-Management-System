@@ -27,8 +27,8 @@ const UserBooksPage = () => {
         filters.status === "All" || record.liveStatus === filters.status;
 
       return matchesSearch && matchesStatus;
+    }, [currentUser?.name, currentUserHistory, filters]);
     });
-  }, [currentUser?.name, currentUserHistory, filters]);
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;

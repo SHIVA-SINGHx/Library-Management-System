@@ -80,6 +80,7 @@ const UserDashBoardPage = () => {
                     </p>
                 </div>
 
+
                 <div className={s.rightColumnGrid}>
                     <article className={s.profileCard}>
                         <div className={s.profileHeader}>
@@ -142,6 +143,7 @@ const UserDashBoardPage = () => {
                     </article>
 
                 </div>
+
             </div>
         </section>
 
