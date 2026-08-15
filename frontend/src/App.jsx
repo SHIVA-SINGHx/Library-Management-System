@@ -11,6 +11,7 @@ import AdminFinePage from "./admin/AdminFinePage";
 import UserLayout from "./user/UserLayout";
 import UserDashBoardPage from "./user/UserDashBoardPage";
 import UserBooksPage from "./user/UserBooksPage";
+import UserEditProfilePage from "./user/UserEditProfilePage";
 
 const App = () => {
   return (
@@ -36,8 +37,11 @@ const App = () => {
           <Route index element={<Navigate to="/user/dashboard" replace />} />
           <Route path="dashboard" element={<UserDashBoardPage />} />
           <Route path="books" element={<UserBooksPage/>}/>
+          <Route path="profile" element={<UserEditProfilePage/>}/>
         </Route>
       </Route>
+      
+      <Route path="" element={ <Navigate to="/" replace />}/>
       
     </Routes>
   );
