@@ -10,6 +10,7 @@ import AdminUserPage from "./admin/AdminUserPage";
 import AdminFinePage from "./admin/AdminFinePage";
 import UserLayout from "./user/UserLayout";
 import UserDashBoardPage from "./user/UserDashBoardPage";
+import UserBooksPage from "./user/UserBooksPage";
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/user" element={<UserLayout />}>
           <Route index element={<Navigate to="/user/dashboard" replace />} />
           <Route path="dashboard" element={<UserDashBoardPage />} />
+          <Route path="books" element={<UserBooksPage/>}/>
         </Route>
       </Route>
       
