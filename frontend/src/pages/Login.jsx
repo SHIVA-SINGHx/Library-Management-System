@@ -221,10 +221,10 @@ const Login = () => {
 
               <div>
                 <span className="m-6 fixed">
-                    {form.role === "admin"
+                    {/* {form.role === "admin"
                     ? "Admin accounts use existing credentials"
                     : "Student signup is available below"
-                    }
+                    } */}
                 </span>
                 {form.role === "user" &&(
                     <Link to="/signup" className={s.signupLink} >

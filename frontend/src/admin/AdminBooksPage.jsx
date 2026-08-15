@@ -220,9 +220,10 @@ const AdminBooksPage = () => {
                     type="text"
                     name="studentName"
                     value={issueForm.studentName}
-                    readOnly
+                    readOnly={isStudentSelected}
                     placeholder="Selected Student name"
                     className={s.readonlyInput}
+                    onChange={handleIssueChange}
                   />
                 </div>
               </label>
@@ -230,6 +231,8 @@ const AdminBooksPage = () => {
               
               <label className={s.label}>
                 <span className={s.labelSpan}>Department</span>
+                <div className={s.searchInputWrapper}>
+
                 <input
                   type="text"
                   name="department"
@@ -239,10 +242,14 @@ const AdminBooksPage = () => {
                   onChange={handleIssueChange}
                   placeholder="Department"
                 />
+                </div>
+
               </label>
 
               <label className={s.label}>
                 <span className={s.labelSpan}>Stream</span>
+                <div className={s.searchInputWrapper}>
+
                 <input
                   type="text"
                   name="stream"
@@ -252,10 +259,13 @@ const AdminBooksPage = () => {
                   onChange={handleIssueChange}
                   placeholder="Stream"
                 />
+                </div>
               </label>
 
               <label className={s.label}>
                 <span className={s.labelSpan}>Year</span>
+                <div className={s.searchInputWrapper}>
+
                 <input
                   type="text"
                   name="academicYear"
@@ -265,10 +275,13 @@ const AdminBooksPage = () => {
                   onChange={handleIssueChange}
                   placeholder="Year"
                 />
+                </div>
               </label>
 
               <label className={s.label}>
                 <span className={s.labelSpan}>Semester</span>
+                <div className={s.searchInputWrapper}>
+
                 <input
                   type="text"
                   name="semester"
@@ -278,10 +291,13 @@ const AdminBooksPage = () => {
                   onChange={handleIssueChange}
                   placeholder="Semester"
                 />
+                </div>
               </label>
 
               <label className={s.label}>
                 <span className={s.labelSpan}>Roll Number</span>
+                <div className={s.searchInputWrapper}>
+
                 <input
                   type="text"
                   name="rollNumber"
@@ -291,6 +307,7 @@ const AdminBooksPage = () => {
                   onChange={handleIssueChange}
                   placeholder="Search by Roll Number"
                 />
+                </div>
               </label>
             </div>
 
