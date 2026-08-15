@@ -537,7 +537,7 @@ export const userDashboardPageStyles = {
   heroText: "mt-4 max-w-2xl text-sm leading-7 text-library-ink/68 sm:text-base",
 
   // right column (profile + semester)
-  rightColumnGrid: "grid gap-4 md:grid-cols-1 lg:grid-cols-2",
+  rightColumnGrid: "grid gap-4 sm:grid-cols-2",
   profileCard: "rounded-[28px] border border-library-ink/10 bg-white/82 p-5 shadow-library-soft",
   profileHeader: "flex items-start justify-between gap-4",
   profileLabel: "text-xs font-bold uppercase tracking-[0.24em] text-library-ink/45",

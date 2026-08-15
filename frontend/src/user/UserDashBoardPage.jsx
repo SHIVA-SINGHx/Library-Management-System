@@ -89,59 +89,47 @@ const UserDashBoardPage = () => {
                                 <p className={s.profileName}>
                                     {currentUser?.name ?? "Campus Reader"}
                                 </p>
-                                <span className={s.profileIconWrapper}>
-                                    <IdCard size={20}/>
-                                </span>
                             </div>
-
-                            <div className={s.profileDetails}>
-                              <div className={s.profileDetailItem}>
-                                Student ID: {currentUserSummary?.studentId ?? "Not assigned"}
-
-                                <div className={s.profileDetailItem}>
-                                  Roll Number:{" "}
-                                   {currentUserSummary?.rollNumber ?? "Not assigned"}
-                                </div>
-
-                                <div className={s.profileDetailItem}>
-                                  Department:{" "}
-                                   {currentUserSummary?.department ?? "General"}
-                                </div>
-                              </div>
-                              <article className={s.semesterCard}>
-                                <div className={s.semesterHeader}>
-                                  <div>
-                                    <p className={s.semesterLabel}>
-                                      Semester Details
-                                    </p>
-                                    <p className={s.semesterValue}>
-                                      {currentUserSummary?.semester ?? "Semester 1"}
-                                    </p>
-                                    <div>
-                                        <span className={s.semesterIconWrapper}>
-                                          <GraduationCap size={20}/>
-                                        </span>
-                                    </div>
-
-                                    <div className={s.semesterDetails}>
-                                      <div className={s.semesterDetailItem}>
-                                        Stream: {currentUserSummary?.stream ?? "General"}
-                                      </div>
-                                      <div className={s.semesterDetailItem}>
-                                        Academic Year: {currentUserSummary?.academicYear ?? "1st Year"}
-                                      </div>
-
-                                    </div>
-                                  </div>
-                                </div>
-                              </article>
-
-                            </div>
-
+                            <span className={s.profileIconWrapper}>
+                                <IdCard size={20} />
+                            </span>
                         </div>
 
+                        <div className={s.profileDetails}>
+                            <div className={s.profileDetailItem}>
+                                Student ID: {currentUserSummary?.studentId ?? "Not assigned"}
+                            </div>
+                            <div className={s.profileDetailItem}>
+                                Roll Number: {currentUserSummary?.rollNumber ?? "Not assigned"}
+                            </div>
+                            <div className={s.profileDetailItem}>
+                                Department: {currentUserSummary?.department ?? "General"}
+                            </div>
+                        </div>
                     </article>
 
+                    <article className={s.semesterCard}>
+                        <div className={s.semesterHeader}>
+                            <div className="min-w-0">
+                                <p className={s.semesterLabel}>Semester Details</p>
+                                <p className={s.semesterValue}>
+                                    {currentUserSummary?.semester ?? "Semester 1"}
+                                </p>
+                            </div>
+                            <span className={s.semesterIconWrapper}>
+                                <GraduationCap size={20} />
+                            </span>
+                        </div>
+
+                        <div className={s.semesterDetails}>
+                            <div className={s.semesterDetailItem}>
+                                Stream: {currentUserSummary?.stream ?? "General"}
+                            </div>
+                            <div className={s.semesterDetailItem}>
+                                Academic Year: {currentUserSummary?.academicYear ?? "1st Year"}
+                            </div>
+                        </div>
+                    </article>
                 </div>
 
             </div>
