@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-export const dbConnect = async ()=>{
+export const dbConnect = async () => {
     try {
-        await mongoose.connect(`${process.env.MONGO_URI}`)
-        console.log("Db connected successfully");
-        
+        const mongoUri = process.env.MONGO_URI || "mongodb://mongodb:27017/Library-Management";
+        await mongoose.connect(mongoUri);
+        console.log("Db connected successfully to:", mongoUri.includes("@") ? mongoUri.split("@")[1] : mongoUri);
     } catch (error) {
-        console.log("Failed to connect db", error);    
+        console.error("Failed to connect db:", error.message || error);    
     }
 }

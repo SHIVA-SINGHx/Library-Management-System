@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { adminBooksPageStyles as s } from "../assets/dummyStyles";
 import { useLibrary } from "../shared/LibraryContext";
 import { FilePlus2, Search, Trash2 } from "lucide-react";
+import { API_STUDENTS_URL } from "../config/api.js";
 
 const getTodayIso = () => {
   const date = new Date();
@@ -56,7 +57,7 @@ const AdminBooksPage = () => {
         setIsSearching(true);
 
         const response = await fetch(
-          `http://localhost:8000/api/students/search-by-roll?roll=${encodeURIComponent(
+          `${API_STUDENTS_URL}/search-by-roll?roll=${encodeURIComponent(
             issueForm.rollNumber.trim(),
           )}`,
           {

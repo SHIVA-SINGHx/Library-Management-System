@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
+import { API_BOOKS_URL } from "../config/api.js";
 
 const LibraryContext = createContext(null);
 
@@ -521,8 +522,6 @@ const createManualRecord = (issue, fineSettings) => ({
   fineCleared: Boolean(issue.fineCleared),
   liveFine: !issue.returnedOn ? getFineAmount(issue, fineSettings) : 0,
 });
-
-const API_BOOKS_URL = "http://localhost:8000/api/books";
 
 const getHeaders = () => {
   const token = localStorage.getItem("library-auth-token");

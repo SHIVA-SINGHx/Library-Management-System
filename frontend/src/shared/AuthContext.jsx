@@ -1,10 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { API_AUTH_URL, API_BASE_URL } from "../config/api.js";
 
 const AuthContext = createContext(null);
 
 const SESSION_KEY = "library-auth-session";
 const TOKEN_KEY = "library-auth-token";
-const API_BASE_URl = "http://localhost:8000/api/auth";
+const API_BASE_URl = API_AUTH_URL;
 
 const defaultAccounts = [];
 
@@ -214,7 +215,7 @@ export const AuthProvider = ({children}) => {
       return {
         ok: false,
         error:
-          "Server connection failed. Please ensure the backend is running on http://localhost:8000",
+          `Server connection failed. Please ensure the backend is running on ${API_BASE_URL}`,
       };
     }
   };

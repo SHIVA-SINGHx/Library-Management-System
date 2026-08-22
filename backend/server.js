@@ -7,7 +7,7 @@ import studentRouter from "./routes/studentRoutes.js";
 import bookRouter from "./routes/bookRoutes.js";
 
 const app = express();
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8000;
 
 
 // Middlewares
