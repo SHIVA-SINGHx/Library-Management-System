@@ -15,7 +15,7 @@ export async function searchStudentbyRoll(req, res) {
     const students = await User.find({
       role: "user",
       isProfileComplete: true,
-      rollno: { $regex: rollRegex },
+      rollNo: { $regex: rollRegex },
     })
       .select("name, email, department, rollNo, stream, semester, year")
       .limit(12);

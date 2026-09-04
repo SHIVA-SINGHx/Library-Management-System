@@ -28,7 +28,11 @@ const userSchema = new mongoose.Schema({
     stream: String,
     semester: String,
     year: String,
-    rollno: String,
+    rollNo: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
     isProfileComplete:{
         type: Boolean,
         default: false
@@ -36,7 +40,8 @@ const userSchema = new mongoose.Schema({
     studentId:{
         type: String,
         unique: true,
-        sparse: true
+        sparse: true,
+        required: true
     },
     role:{
         type: String,

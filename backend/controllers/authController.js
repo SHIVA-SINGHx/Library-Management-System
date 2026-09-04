@@ -126,6 +126,16 @@ export async function completeProfile(req, res) {
         message: "User not verified",
       });
 
+    // Check if roll number already exists (and it's not the same user)
+    if (rollNo) {
+      const existingRollNo = await User.findOne({ rollNo, _id: { $ne: user._id } });
+      if (existingRollNo) {
+        return res.status(400).json({
+          message: "Roll number already exists. Please use a unique roll number.",
+        });
+      }
+    }
+
     Object.assign(user, {
       department,
       semester,
@@ -140,7 +150,7 @@ export async function completeProfile(req, res) {
 
   } catch (error) {
     console.log(error)
-    return response.status(500).json({
+    return res.status(500).json({
         message: 'Error completing profile',
         error: error.message
     })
@@ -253,7 +263,14 @@ export async function updateProfile(req, res) {
     if (stream) user.stream = stream;
     if (semester) user.semester = semester;
     if (academicYear) user.year = academicYear;
-    if (rollNumber) user.rollNo = rollNumber;
+    if (rollNumber) {
+      // Check if roll number already exists (and it's not the same user)
+      const existingRollNo = await User.findOne({ rollNo: rollNumber, _id: { $ne: user._id } });
+      if (existingRollNo) {
+        return res.status(400).json({ message: "Roll number already exists. Please use a unique roll number." });
+      }
+      user.rollNo = rollNumber;
+    }
 
     await user.save();
     res.status(200).json({ success: true, message: "Profile updated successfully", user });
@@ -275,6 +292,47 @@ export async function getUsers(req, res){
   } catch (error) {
     console.error("Error fething profile:", error);
     res.status(500).json({ message: "Error fething profile", error: error.message });
+  }
+}
+
+// delete user
+export async function deleteUser(req, res){
+  try {
+    const { userId } = req.body;
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID is required"
+      });
+    }
+
+    // Check if user has permission (admin or own profile)
+    if (req.user.role !== "admin" && req.user.id !== userId) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized to delete this user"
+      });
+    }
+
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "User deleted successfully"
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Error deleting user",
+      error: error.message
+    });
   }
 }
 
